@@ -34,3 +34,28 @@ help:
 	[[print(f'\033[36m{m[0]:<20}\033[0m {m[1]}') for m in re.findall(r'^([a-zA-Z_-]+):.*?## (.*)$$', open(makefile).read(), re.M)] for makefile in ('$(MAKEFILE_LIST)').strip().split()]"
 
 .DEFAULT_GOAL := help
+
+.PHONY: run
+run:
+	@uv lock
+	@uv run fastapi dev
+
+IMAGE_NAME = ballcruncher-backend
+CONTAINER_NAME = ballcruncher-container
+PORT = 8000
+
+.PHONY: build run stop clean
+
+docker-build:
+	docker build -t $(IMAGE_NAME) .
+
+docker-run: stop
+	docker run --name $(CONTAINER_NAME) -p $(PORT):80 -d $(IMAGE_NAME)
+
+docker-stop:
+	docker stop $(CONTAINER_NAME) || true
+	docker rm $(CONTAINER_NAME) || true
+
+docker-clean: stop
+	docker rmi $(IMAGE_NAME) || true
+	docker system prune -f

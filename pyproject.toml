@@ -1,21 +1,14 @@
 [project]
 name = "ballcruncher-backend"
-version = "0.0.1"
+version = "0.1.0"
 description = "Ballcruncher Backend"
-authors = [{ name = "Kyle Clark", email = "2191744+kyleaclark@users.noreply.github.com" }]
+authors = [{ name = "Kyle Clark" }]
 readme = "README.md"
-keywords = ['python']
-requires-python = ">=3.9,<4.0"
-classifiers = [
-    "Intended Audience :: Developers",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
-    "Topic :: Software Development :: Libraries :: Python Modules",
+requires-python = ">=3.13,<4.0"
+dependencies = [
+    "fastapi[standard]>=0.115.8",
+    "python-json-logger>=3.2.1,<4.0.0",
+    "requests>=2.32.3,<3.0.0"
 ]
 
 [project.urls]
@@ -28,11 +21,9 @@ dev = [
     "pytest>=7.2.0",
     "pre-commit>=2.20.0",
     "tox-uv>=1.11.3",
-    
     "mypy>=0.991",
     "pytest-cov>=4.0.0",
     "ruff>=0.9.2",
-    
 ]
 
 [build-system]
@@ -40,10 +31,10 @@ requires = ["setuptools >= 61.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-py-modules = ["ballcruncher_backend"]
+py-modules = ["app"]
 
 [tool.mypy]
-files = ["ballcruncher_backend"]
+files = ["app"]
 disallow_untyped_defs = true
 disallow_any_unimported = true
 no_implicit_optional = true
@@ -56,7 +47,7 @@ show_error_codes = true
 testpaths = ["tests"]
 
 [tool.ruff]
-target-version = "py39"
+target-version = "py313"
 line-length = 120
 fix = true
 
@@ -111,5 +102,4 @@ skip_empty = true
 
 [tool.coverage.run]
 branch = true
-source = ["ballcruncher_backend"]
-
+source = ["app"]

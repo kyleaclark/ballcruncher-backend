@@ -1,5 +1,5 @@
 # Install uv
-FROM python:3.12-slim
+FROM python:3.13-slim
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
 # Change the working directory to the `app` directory
@@ -16,6 +16,6 @@ RUN uv sync --frozen --no-install-project
 ADD . /app
 
 # Sync the project
-RUN uv sync --frozen
+RUN uv sync --frozen --no-cache
 
-CMD [ "python", "ballcruncher_backend/foo.py"]
+CMD ["/app/.venv/bin/fastapi", "run", "app/main.py", "--port", "80"]
