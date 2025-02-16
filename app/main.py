@@ -1,7 +1,7 @@
 import logging
 
-from app.config.app_init import create_app
 from app.config.app_config import AppConfig
+from app.config.app_init import create_app
 
 logger = logging.getLogger(__name__)
 
